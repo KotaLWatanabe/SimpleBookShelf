@@ -1,0 +1,15 @@
+@import domain.BookReference
+@import domain.BookId
+
+@(books: Map[BookId, BookReference])
+
+@main("Welcome to Play") {
+  <h1>Welcome to Play!</h1>
+  <table>
+    @{
+      for((id, ref) <- books) yield {
+          <tr><td>{id}</td><td>{ref.book.title}</td><td>{ref.tags.headOption.map(_.name)}</td></tr>
+      }
+    }
+  </table>
+}

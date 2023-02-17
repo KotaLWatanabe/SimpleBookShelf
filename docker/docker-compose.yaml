@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  dynamodb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    user: root
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+  mysql:
+    image: mysql:5.7.16
+    container_name: book_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: book_database
+      MYSQL_USER: book
+      MYSQL_PASSWORD: book
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - ".\\mysql\\data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
